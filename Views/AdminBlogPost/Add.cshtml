@@ -1,10 +1,8 @@
 @model Bloggie.Web.Models.ViewModel.AddBlogPostRequest
 
-
 @{
     ViewData["Title"] = "Add Tags";
 }
-
 
 <div class="bg-secondary bg-opacity-10 py-2">
     <div class="container">
@@ -59,3 +57,10 @@
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
+
+@section Scripts {
+    <script>
+        // Initialize Froala Editor on the textarea with id="Content"
+        new FroalaEditor('#Content');
+    </script>
+}
