@@ -2,7 +2,6 @@ using Bloggie.Web.Models.Domain;
 using Bloggie.Web.Models.ViewModel;
 using Bloggie.Web.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Bloggie.Web.Controllers
 {

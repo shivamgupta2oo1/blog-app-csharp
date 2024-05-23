@@ -41,6 +41,11 @@ public class TagRepository : ITagRepository
         return bloggieDbContext.Tags.FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    public Task GetAsync(object tag)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<Tag?> UpdateAsync(Tag tag)
     {
         var existingTag = await bloggieDbContext.Tags.FindAsync(tag.Id);

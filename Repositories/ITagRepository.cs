@@ -9,6 +9,7 @@ namespace Bloggie.Web.Repositories
         Task<Tag> AddAsync(Tag tag);
         Task<Tag?> UpdateAsync(Tag tag);
         Task<Tag?> DeleteAsync(Guid id);
+        Task GetAsync(object tag);
     }
 
 }
