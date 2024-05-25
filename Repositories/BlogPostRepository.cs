@@ -33,11 +33,6 @@ namespace Bloggie.Web.Repositories
             return null;
         }
 
-        public Task DeleteAsync(object editBlogPostRequest)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<BlogPost>> GetAllAsync()
         {
             return await bloggieDbContext.BlogPosts.Include(x => x.Tags).ToListAsync();
@@ -46,6 +41,11 @@ namespace Bloggie.Web.Repositories
         public async Task<BlogPost?> GetAsync(Guid id)
         {
             return await bloggieDbContext.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<BlogPost?> GetByUrlHandleAsync(string urlHandler)
+        {
+            return await bloggieDbContext.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x => x.UrlHandle == urlHandler);
         }
 
         public async Task<BlogPost?> UpdateAsync(BlogPost blogPost)
