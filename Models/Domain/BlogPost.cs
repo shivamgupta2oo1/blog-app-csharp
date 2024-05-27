@@ -8,7 +8,7 @@ namespace Bloggie.Web.Models.Domain
         public string Content { get; set; }
         public string ShortDescription { get; set; }
         public string FeatureImageUrl { get; set; }
-        public string UrlHandle { get; set; }
+        public  string UrlHandle { get; set; }
         private DateTime _publishedDate;
         internal Guid id;
 

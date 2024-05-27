@@ -11,5 +11,6 @@
             "password": "Supernov@8055",
             "connectionTimeout": 30
         }
-    ]
+    ],
+    "cmake.options.statusBarVisibility": "visible"
 }

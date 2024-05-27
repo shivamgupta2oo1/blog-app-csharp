@@ -1,15 +1,36 @@
 @model Bloggie.Web.Models.Domain.BlogPost
 
+@{
+    ViewData["Title"] = Model.PageTitle;
+}
+
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-6">
             @if (Model != null)
             {
                 <h1 class="mb-3">@Model.Heading</h1>
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="text-secondary">@Model.Author</span>
+                    <span class="text-secondary">@Model.PublishedDate.ToShortDateString()</span>
+                </div>
+
+                <div class="d-flex mb-3">
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <span class="badge bg-secondary me-1">@tag.Name</span>
+                    }
+                </div>
+                <img src="@Model.FeatureImageUrl" class="d-block img-fluid mb-3" style="width: 100%; height:auto;" />
+
+                <div class="mb-3 blog-detail-content">
+                    @Html.Raw(Model.Content)
+                </div>
+
             }
             else
             {
-                <p>Blog Post Not Found!</p>
+                <p>No Blog Post Found</p>
             }
         </div>
     </div>

@@ -18,7 +18,8 @@ namespace Bloggie.Web.Repositories
             );
         }
 
-        public async Task<string> UploadAsync(IFormFile file)
+        [Obsolete]
+        public async Task<string?> UploadAsync(IFormFile file)
         {
 
             var client = new Cloudinary(account);
