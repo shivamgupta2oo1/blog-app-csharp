@@ -18,6 +18,18 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /home/algo66/shivam/blog-app-csharp
 build_property._RazorSourceGeneratorDebug = 
 
+[/home/algo66/shivam/blog-app-csharp/Views/Account/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9BY2Nlc3NEZW5pZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/algo66/shivam/blog-app-csharp/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/algo66/shivam/blog-app-csharp/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9SZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/algo66/shivam/blog-app-csharp/Views/AdminBlogPost/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5CbG9nUG9zdC9BZGQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

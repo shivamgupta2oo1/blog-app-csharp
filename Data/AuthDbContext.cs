@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Bloggie.Web.Data
 {
     public class AuthDbContext : IdentityDbContext
     {
-        public AuthDbContext(DbContextOptions options) : base(options) { }
+        public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -21,41 +22,42 @@ namespace Bloggie.Web.Data
                 new IdentityRole
                 {
                     Name = "Admin",
-                    NormalizedName = "Admin",
-                    Id =adminRoleId,
+                    NormalizedName = "ADMIN",
+                    Id = adminRoleId,
                     ConcurrencyStamp = adminRoleId,
                 },
                 new IdentityRole
                 {
                     Name = "SuperAdmin",
-                    NormalizedName = "SuperAdmin",
-                    Id =superAdminRoleId,
+                    NormalizedName = "SUPERADMIN",
+                    Id = superAdminRoleId,
                     ConcurrencyStamp = superAdminRoleId,
-                },new IdentityRole
+                },
+                new IdentityRole
                 {
                     Name = "User",
-                    NormalizedName = "User",
-                    Id =userRoleId,
+                    NormalizedName = "USER",
+                    Id = userRoleId,
                     ConcurrencyStamp = userRoleId,
                 },
-          };
+            };
 
             builder.Entity<IdentityRole>().HasData(roles);
 
             var superAdminId = "e02f72d1-620d-4b88-bb73-dcd490b6e1d4";
 
-            var SuperAdminUser = new IdentityUser
+            var superAdminUser = new IdentityUser
             {
                 UserName = "superadmin@bloggie.com",
                 Email = "superadmin@bloggie.com",
-                NormalizedEmail = "superadmin@bloggie.com".ToUpper(),
-                NormalizedUserName = "superadmin@bloggie.com".ToUpper(),
+                NormalizedEmail = "SUPERADMIN@BLOGGIE.COM",
+                NormalizedUserName = "SUPERADMIN@BLOGGIE.COM",
                 Id = superAdminId,
             };
 
-            SuperAdminUser.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(SuperAdminUser, "Superadmin@123");
+            superAdminUser.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(superAdminUser, "Superadmin@123");
 
-            builder.Entity<IdentityRole>().HasData(SuperAdminUser);
+            builder.Entity<IdentityUser>().HasData(superAdminUser);
 
             var superAdminRoles = new List<IdentityUserRole<string>>
             {
@@ -64,12 +66,12 @@ namespace Bloggie.Web.Data
                     RoleId = adminRoleId,
                     UserId = superAdminId
                 },
-                new  IdentityUserRole<string>
+                new IdentityUserRole<string>
                 {
                     RoleId = superAdminRoleId,
                     UserId = superAdminId
                 },
-               new   IdentityUserRole<string>
+                new IdentityUserRole<string>
                 {
                     RoleId = userRoleId,
                     UserId = superAdminId
