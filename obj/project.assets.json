@@ -5486,11 +5486,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/algo66/shivam/blog-app-csharp/Bloggie.Web.csproj",
+      "projectUniqueName": "/home/algo66/blog-app-csharp/Bloggie.Web.csproj",
       "projectName": "Bloggie.Web",
-      "projectPath": "/home/algo66/shivam/blog-app-csharp/Bloggie.Web.csproj",
+      "projectPath": "/home/algo66/blog-app-csharp/Bloggie.Web.csproj",
       "packagesPath": "/home/algo66/.nuget/packages/",
-      "outputPath": "/home/algo66/shivam/blog-app-csharp/obj/",
+      "outputPath": "/home/algo66/blog-app-csharp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/algo66/.nuget/NuGet/NuGet.Config"

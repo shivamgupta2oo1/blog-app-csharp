@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "b2nz/Tlj0KE=",
+  "dgSpecHash": "sLTME/g4UB0=",
   "success": true,
-  "projectFilePath": "/home/algo66/shivam/blog-app-csharp/Bloggie.Web.csproj",
+  "projectFilePath": "/home/algo66/blog-app-csharp/Bloggie.Web.csproj",
   "expectedPackageFiles": [
     "/home/algo66/.nuget/packages/cloudinarydotnet/1.26.2/cloudinarydotnet.1.26.2.nupkg.sha512",
     "/home/algo66/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
