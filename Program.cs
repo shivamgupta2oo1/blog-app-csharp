@@ -19,6 +19,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
 builder.Services.AddScoped<IImageRepository, CloudinaryImageRepository>();
+builder.Services.AddScoped<IBlogPostLikeRepository, BlogPostLikeRepository>(); // This line is correct
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -54,4 +55,4 @@ app.MapControllerRoute(
 app.Run();
 
 // Change the port number here
-// app.Run("http://localhost:5248");
+app.Run("http://localhost:5248");
