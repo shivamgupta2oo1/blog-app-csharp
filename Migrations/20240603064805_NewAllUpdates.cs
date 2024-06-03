@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Bloggie.Web.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class NewAllUpdates : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,8 +22,8 @@ namespace Bloggie.Web.Migrations
                     ShortDescription = table.Column<string>(type: "text", nullable: false),
                     FeatureImageUrl = table.Column<string>(type: "text", nullable: false),
                     UrlHandle = table.Column<string>(type: "text", nullable: false),
-                    PUblishedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Auther = table.Column<string>(type: "text", nullable: false),
+                    PublishedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Author = table.Column<string>(type: "text", nullable: false),
                     Visible = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -42,6 +42,46 @@ namespace Bloggie.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tags", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BlogPostComment",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    BlogPostId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DateAdded = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogPostComment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BlogPostComment_BlogPosts_BlogPostId",
+                        column: x => x.BlogPostId,
+                        principalTable: "BlogPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BlogPostLike",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    BlogPostId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogPostLike", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BlogPostLike_BlogPosts_BlogPostId",
+                        column: x => x.BlogPostId,
+                        principalTable: "BlogPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,6 +109,16 @@ namespace Bloggie.Web.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_BlogPostComment_BlogPostId",
+                table: "BlogPostComment",
+                column: "BlogPostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BlogPostLike_BlogPostId",
+                table: "BlogPostLike",
+                column: "BlogPostId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BlogPostTag_TagsId",
                 table: "BlogPostTag",
                 column: "TagsId");
@@ -77,6 +127,12 @@ namespace Bloggie.Web.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BlogPostComment");
+
+            migrationBuilder.DropTable(
+                name: "BlogPostLike");
+
             migrationBuilder.DropTable(
                 name: "BlogPostTag");
 

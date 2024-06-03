@@ -25,3 +25,30 @@ body {
 .blog-detail-content img{
   max-width: 100%;
 }
+
+
+@media (max-width: 767px) {
+  .blog-post {
+      padding: 15px;
+  }
+
+  .blog-post h1 {
+      font-size: 20px;
+  }
+
+  .blog-post .meta-info {
+      font-size: 12px;
+  }
+
+  .blog-post .tags .badge {
+      margin-right: 3px;
+  }
+
+  .blog-post img {
+      margin-bottom: 10px;
+  }
+
+  .blog-post .content {
+      font-size: 14px;
+  }
+}

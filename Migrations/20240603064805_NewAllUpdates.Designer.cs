@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bloggie.Web.Migrations
 {
     [DbContext(typeof(BloggieDbContext))]
-    [Migration("20240517121827_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240603064805_NewAllUpdates")]
+    partial class NewAllUpdates
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,13 +40,13 @@ namespace Bloggie.Web.Migrations
                     b.ToTable("BlogPostTag");
                 });
 
-            modelBuilder.Entity("Bloggie.Web.Models.Domain.ViewModel.BlogPost", b =>
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPost", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Auther")
+                    b.Property<string>("Author")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -62,12 +62,12 @@ namespace Bloggie.Web.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("PUblishedDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("PageTitle")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("PublishedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ShortDescription")
                         .IsRequired()
@@ -85,7 +85,52 @@ namespace Bloggie.Web.Migrations
                     b.ToTable("BlogPosts");
                 });
 
-            modelBuilder.Entity("Bloggie.Web.Tag", b =>
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPostComment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BlogPostId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogPostId");
+
+                    b.ToTable("BlogPostComment");
+                });
+
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPostLike", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BlogPostId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogPostId");
+
+                    b.ToTable("BlogPostLike");
+                });
+
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.Tag", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,17 +151,42 @@ namespace Bloggie.Web.Migrations
 
             modelBuilder.Entity("BlogPostTag", b =>
                 {
-                    b.HasOne("Bloggie.Web.Models.Domain.ViewModel.BlogPost", null)
+                    b.HasOne("Bloggie.Web.Models.Domain.BlogPost", null)
                         .WithMany()
                         .HasForeignKey("BlogPostsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Bloggie.Web.Tag", null)
+                    b.HasOne("Bloggie.Web.Models.Domain.Tag", null)
                         .WithMany()
                         .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPostComment", b =>
+                {
+                    b.HasOne("Bloggie.Web.Models.Domain.BlogPost", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("BlogPostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPostLike", b =>
+                {
+                    b.HasOne("Bloggie.Web.Models.Domain.BlogPost", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("BlogPostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPost", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618
         }

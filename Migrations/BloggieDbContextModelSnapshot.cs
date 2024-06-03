@@ -34,7 +34,7 @@ namespace Bloggie.Web.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("BlogPostTag", (string)null);
+                    b.ToTable("BlogPostTag");
                 });
 
             modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPost", b =>
@@ -79,7 +79,33 @@ namespace Bloggie.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BlogPosts", (string)null);
+                    b.ToTable("BlogPosts");
+                });
+
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPostComment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BlogPostId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogPostId");
+
+                    b.ToTable("BlogPostComment");
                 });
 
             modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPostLike", b =>
@@ -98,7 +124,7 @@ namespace Bloggie.Web.Migrations
 
                     b.HasIndex("BlogPostId");
 
-                    b.ToTable("BlogPostLike", (string)null);
+                    b.ToTable("BlogPostLike");
                 });
 
             modelBuilder.Entity("Bloggie.Web.Models.Domain.Tag", b =>
@@ -117,7 +143,7 @@ namespace Bloggie.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("BlogPostTag", b =>
@@ -135,6 +161,15 @@ namespace Bloggie.Web.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPostComment", b =>
+                {
+                    b.HasOne("Bloggie.Web.Models.Domain.BlogPost", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("BlogPostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPostLike", b =>
                 {
                     b.HasOne("Bloggie.Web.Models.Domain.BlogPost", null)
@@ -146,6 +181,8 @@ namespace Bloggie.Web.Migrations
 
             modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPost", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Likes");
                 });
 #pragma warning restore 612, 618

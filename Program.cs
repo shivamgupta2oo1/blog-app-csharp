@@ -19,7 +19,8 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
 builder.Services.AddScoped<IImageRepository, CloudinaryImageRepository>();
-builder.Services.AddScoped<IBlogPostLikeRepository, BlogPostLikeRepository>(); // This line is correct
+builder.Services.AddScoped<IBlogPostLikeRepository, BlogPostLikeRepository>(); 
+builder.Services.AddScoped<IBlogPostCommentRepository, BlogPostCommentRepository>(); 
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
