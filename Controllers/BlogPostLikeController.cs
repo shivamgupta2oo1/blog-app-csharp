@@ -9,11 +9,11 @@ namespace Bloggie.Web.Controllers
     [ApiController] // Add this attribute to make it a proper API controller
     public class BlogPostLikeController : ControllerBase
     {
-        private readonly IBlogPostLikeRepository _blogPostLikeRepository;
+        private readonly IBlogPostLikeRepository blogPostLikeRepository;
 
         public BlogPostLikeController(IBlogPostLikeRepository blogPostLikeRepository)
         {
-            _blogPostLikeRepository = blogPostLikeRepository;
+            this.blogPostLikeRepository = blogPostLikeRepository;
         }
 
         [HttpPost]
@@ -26,7 +26,7 @@ namespace Bloggie.Web.Controllers
                 UserId = addLikeRequest.UserId,
             };
 
-            await _blogPostLikeRepository.AddLikeForBlog(model);
+            await blogPostLikeRepository.AddLikeForBlog(model);
 
             return Ok();
         }
@@ -35,7 +35,7 @@ namespace Bloggie.Web.Controllers
         [Route("{blogPostId:Guid}/totalLikes")]
         public async Task<IActionResult> GetTotalLikeForBlog([FromRoute] Guid blogPostId)
         {
-            var totalLikes = await _blogPostLikeRepository.GetTotalLikes(blogPostId);
+            var totalLikes = await blogPostLikeRepository.GetTotalLikes(blogPostId);
             return Ok(totalLikes);
         }
     }

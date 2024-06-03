@@ -12,10 +12,9 @@ namespace Bloggie.Web.Controllers
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly UserManager<IdentityUser> userManager;
 
-        public BlogsController(IBlogPostRepository blogPostRepository, IBlogPostLikeRepository blogPostLikeRepository, ILogger<BlogsController> logger, SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        public BlogsController(IBlogPostRepository blogPostRepository, IBlogPostLikeRepository blogPostLikeRepository, SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
         {
             this.blogPostRepository = blogPostRepository;
-            this.logger = logger;
             this.blogPostLikeRepository = blogPostLikeRepository;
             this.signInManager = signInManager;
             this.userManager = userManager;
@@ -39,7 +38,6 @@ namespace Bloggie.Web.Controllers
                     {
                         var likedForUser = likedForBlog.FirstOrDefault(x => x.UserId == Guid.Parse(userId));
                         liked = likedForUser != null;
-
                     }
                 }
 

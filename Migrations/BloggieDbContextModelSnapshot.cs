@@ -34,7 +34,7 @@ namespace Bloggie.Web.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("BlogPostTag");
+                    b.ToTable("BlogPostTag", (string)null);
                 });
 
             modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPost", b =>
@@ -79,7 +79,7 @@ namespace Bloggie.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BlogPosts");
+                    b.ToTable("BlogPosts", (string)null);
                 });
 
             modelBuilder.Entity("Bloggie.Web.Models.Domain.BlogPostLike", b =>
@@ -98,7 +98,7 @@ namespace Bloggie.Web.Migrations
 
                     b.HasIndex("BlogPostId");
 
-                    b.ToTable("BlogPostLike");
+                    b.ToTable("BlogPostLike", (string)null);
                 });
 
             modelBuilder.Entity("Bloggie.Web.Models.Domain.Tag", b =>
@@ -117,7 +117,7 @@ namespace Bloggie.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("BlogPostTag", b =>
