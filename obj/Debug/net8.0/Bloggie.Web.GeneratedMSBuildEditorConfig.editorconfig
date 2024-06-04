@@ -54,6 +54,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5UYWdzL0xpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/algo66/newfolder/blog-app-csharp/Views/AdminUser/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5Vc2VyL0xpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/algo66/newfolder/blog-app-csharp/Views/Blogs/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmxvZ3MvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

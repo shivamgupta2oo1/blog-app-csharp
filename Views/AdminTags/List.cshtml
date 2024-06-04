@@ -30,9 +30,10 @@
                     <td>@tag.Name</td>
                     <td>@tag.DisplayName</td>
                     <td>
+                       <button class="button">
                         <a asp-area="" asp-controller="AdminTags" asp-action="Edit" asp-route-id="@tag.Id">Edit</a>
+                        </button>
                     </td>
-
                 </tr>
             }
         </tbody>
