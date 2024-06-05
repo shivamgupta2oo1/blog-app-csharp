@@ -12,5 +12,8 @@
             "connectionTimeout": 30
         }
     ],
-    "cmake.options.statusBarVisibility": "visible"
+    "cmake.options.statusBarVisibility": "visible",
+    "[aspnetcorerazor]": {
+        "editor.defaultFormatter": "ms-dotnettools.csharp"
+    }
 }

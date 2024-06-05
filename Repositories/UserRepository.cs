@@ -14,14 +14,14 @@ namespace Bloggie.Web.Repositories
         }
         public async Task<IEnumerable<IdentityUser>> GetAll()
         {
-            var user = await authDbContext.Users.ToListAsync();
+            var users = await authDbContext.Users.ToListAsync();
             var superAdminUser = await authDbContext.Users.FirstOrDefaultAsync(x => x.Email == "superadmin@bloggie.com");
 
-            if (user != null)
+            if (users != null)
             {
-                user.Remove(superAdminUser);
+                users.Remove(superAdminUser);
             }
-            return user;
+            return users;
         }
     }
 }

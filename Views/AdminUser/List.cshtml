@@ -4,7 +4,6 @@
     ViewData["Title"] = "Add Users";
 }
 
-
 <div class="bg-secondary bg-opacity-10 py-2">
     <div class="container">
         <h1>Users - Admin Functionality</h1>
@@ -13,7 +12,11 @@
 
 <div>
     <div class="container">
-
+        <div class="mb-3 mt-3 d-flex justify-content-end">
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalCreateUser">
+                Create User
+            </button>
+        </div>
         @if (Model.Users != null && Model.Users.Any())
         {
             <table class="table">
@@ -33,7 +36,9 @@
                             <td>@user.UserName</td>
                             <td>@user.EmailAddress</td>
                             <td>
-                                <button type="button">Edit</button>
+                                <form asp-controller="AdminUser" asp-action="Delete" asp-route-id="@user.Id" method="post">
+                                    <button type="submit" class="btn btn-danger button">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     }
@@ -42,7 +47,59 @@
         }
         else
         {
-            <p>Not Found Any User</p>
+            <p>No users found</p>
         }
     </div>
 </div>
+
+<!-- Modal -->
+<form method="post" asp-controller="AdminUser" asp-action="List">
+    <div class="modal fade" id="modalCreateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create New User</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">UserName</label>
+                        <input type="text" class="form-control" asp-for="Username">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input type="text" class="form-control" asp-for="Email">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" asp-for="Password">
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" id="chkUserRole" class="form-check-input" value="User" checked
+                                disabled>
+                            <label for="chkUserRole" class="form-check-label">User Role</label>
+                        </div>
+
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            <div class="form-check">
+                                <input type="checkbox" id="chkAdminRole" class="form-check-input"
+                                    asp-for="AdminRoleCheckBox">
+                                <label for="chkAdminRole" class="form-check-label">Admin Role</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
