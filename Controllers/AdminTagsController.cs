@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bloggie.Web.Controllers
 {
-        [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
 
     public class AdminTagsController : Controller
     {
@@ -27,14 +27,17 @@ namespace Bloggie.Web.Controllers
         [ActionName("Add")]
         public async Task<IActionResult> SubmitTag(AddTagRequest addTagRequest)
         {
-            var tag = new Tag
+            // validateAddTagRequest(addTagRequest);
+            if (ModelState.IsValid == false)
             {
-                Name = addTagRequest.Name,
-                DisplayName = addTagRequest.DisplayName
-            };
+                var tag = new Tag
+                {
+                    Name = addTagRequest.Name,
+                    DisplayName = addTagRequest.DisplayName
+                };
 
-            await tagRepository.AddAsync(tag);
-
+                await tagRepository.AddAsync(tag);
+            }
             return RedirectToAction("List");
         }
 
@@ -98,6 +101,14 @@ namespace Bloggie.Web.Controllers
                 //show error notification
             }
             return RedirectToAction("Edit", new { id = editTagRequest.Id });
-        }
+        }  // public void validateAddTagRequest(AddTagRequest addTagRequest)
+        // {
+        //     if()
+        // }
+
+        // public void validateAddTagRequest(AddTagRequest addTagRequest)
+        // {
+        //     if()
+        // }
     }
 }
