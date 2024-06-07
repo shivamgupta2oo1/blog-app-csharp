@@ -12,44 +12,63 @@
 <form action="Add" method="post">
     <div class="mb-3">
         <label for="Heading">Heading</label>
-        <input id="Heading" name="Heading" type="text" class="form-control" asp-for="Heading" />
+        <input required id="Heading" name="Heading" type="text" class="form-control" asp-for="Heading" />
+        <span asp-validation-for="Heading" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label for="PageTitle">Page Title</label>
-        <input id="PageTitle" name="PageTitle" type="text" class="form-control" asp-for="PageTitle" />
+        <input required id="PageTitle" name="PageTitle" type="text" class="form-control" asp-for="PageTitle" />
+        <span asp-validation-for="PageTitle" class="text-danger"></span>
+
     </div>
     <div class="mb-3">
         <label for="Content">Content</label>
         <textarea id="Content" name="Content" class="form-control" asp-for="Content"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+
     </div>
     <div class="mb-3">
         <label for="ShortDescription">Short Description</label>
-        <input id="ShortDescription" name="ShortDescription" type="text" class="form-control"
+        <input required id="ShortDescription" name="ShortDescription" type="text" class="form-control"
             asp-for="ShortDescription" />
+        <span asp-validation-for="ShortDescription" class="text-danger"></span>
+
     </div>
     <div class="mb-3">
         <label class="form-label">Feature Image Upload</label>
-        <input id="FeatureImageUpload" type="file" class="form-control mb-3" />
+        <input required id="FeatureImageUpload" type="file" class="form-control mb-3" />
         <img src="" id="FeturedImageDisplay" class="ml-4" style="display: none; width: 100%; height: auto;">
     </div>
     <div class="mb-3">
         <label for="FeatureImageUrl">Feature Image URL</label>
-        <input id="FeatureImageUrl" name="FeatureImageUrl" type="text" class="form-control" asp-for="FeatureImageUrl" />
+        <input required id="FeatureImageUrl" name="FeatureImageUrl" type="text" class="form-control"
+            asp-for="FeatureImageUrl" />
+        <span asp-validation-for="FeatureImageUrl" class="text-danger"></span>
+
     </div>
     <div class="mb-3">
         <label for="UrlHandle">URL Handle</label>
-        <input id="UrlHandle" name="UrlHandle" type="text" class="form-control" asp-for="UrlHandle" />
+        <input required id="UrlHandle" name="UrlHandle" type="text" class="form-control" asp-for="UrlHandle" />
+        <span asp-validation-for="UrlHandle" class="text-danger"></span>
+
     </div>
     <div class="mb-3">
         <label for="PublishedDate">Published Date</label>
-        <input id="PublishedDate" name="PublishedDate" type="date" class="form-control" asp-for="PublishedDate" />
+        <input required id="PublishedDate" name="PublishedDate" type="date" class="form-control"
+            asp-for="PublishedDate" />
+        <span asp-validation-for="PublishedDate" class="text-danger"></span>
+
     </div>
     <div class="mb-3">
         <label for="Author">Author</label>
-        <input id="Author" name="Author" type="text" class="form-control" asp-for="Author" />
+        <input required id="Author" name="Author" type="text" class="form-control" asp-for="Author" />
+        <span asp-validation-for="Author" class="text-danger"></span>
+
     </div>
     <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" id="Visible" asp-for="Visible">
+        <input required class="form-check-input" type="checkbox" id="Visible" asp-for="Visible">
+        <span asp-validation-for="Visible" class="text-danger"></span>
+
         <label class="form-check-label">
             Is Visible?
         </label>
@@ -57,8 +76,10 @@
 
     <div class="mb-3">
         <label class="form-label">Tags</label>
-        <select class="form-select" asp-items="@Model.Tags" asp-for="SelectedTags">
+        <select class="form-select" asp-items="@Model.Tags" asp-for="SelectedTags" required>
         </select>
+        <span asp-validation-for="SelectedTags" class="text-danger"></span>
+
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
 </form>

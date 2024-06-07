@@ -28,27 +28,33 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary text-dark fs-5 fw-bold">Register</button>
+                <p class="text-wrap">If User Already Register Move To The ?<a asp-controller="Account"  asp-action="Login">Login Page</a></p>
+                <button type="submit" class="btn btn-primary text-dark fs-5 
+                fw-bold">Register</button>
             </div>
         </form>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
 
 <style>
     /* Add your CSS styles here */
 
-       body {
-  background-color: rgb(253, 172, 236); 
-}
-    body, html {
+    body {
+        background-color: rgb(253, 172, 236);
+    }
+
+    body,
+    html {
         height: 100%;
         margin: 0;
         font-family: Arial, sans-serif;
-    }
+    }  Page</a></p>
 
     .full-page-body {
         display: flex;

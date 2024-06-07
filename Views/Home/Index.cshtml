@@ -4,30 +4,26 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container col-xxl-8 px-4 py-5">
+<div class="container-fluid px-4 py-5">
     <div class="row align-items-center g-5 py-5">
-        <div class="col-12 col-lg-6">
-            <h1 class="display-5 fw-bold lh-1 mb-3">
-                Bloggie - The Dev Blog
-            </h1>
+        <div class="col-12 col-md-6 col-lg-6 col-xl-6 order-lg-1 order-md-2">
+            <h1 class="display-5 fw-bold lh-1 mb-3">Bloggie - The Dev Blog</h1>
             <p class="lead">
-                BLoggie is the gome of blogs converting a varst range of topicts like HTML, Javascript, CSS, ASP.NET,
-                C#, Angular etc.-
-                want to read the leatest articels? Join the bloggie app and
-                get weekly blogs in you email.
+                BLoggie is the home of blogs converting a vast range of topics like HTML, Javascript, CSS, ASP.NET, C#, Angular etc.-
+                Want to read the latest articles? Join the bloggie app and get weekly blogs in your email.
             </p>
         </div>
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-md-6 col-lg-6 col-xl-6 order-lg-2 order-md-1">
             <img src="https://images.pexels.com/photos/6804610/pexels-photo-6804610.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt="Bloogie - Dev Blogs" class="d-block mx-lg-auto img-fluid" width="500">
+                 alt="Bloogie - Dev Blogs" class="d-block mx-lg-auto img-fluid" style="width: 100%; height: auto;">
         </div>
     </div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-6">
-            @if (Model != null && Model.Tags.Any())
+        <div class="col-12 col-md-8 col-lg-6 col-xl-4">
+            @if (Model!= null && Model.Tags.Any())
             {
                 foreach (var tag in Model.Tags)
                 {
@@ -35,42 +31,37 @@
                 }
             }
         </div>
-
     </div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-6">
-            @if (Model != null && Model.BlogPosts.Any())
+        <div class="col-12 col-md-8 col-lg-6 col-xl-4">
+            @if (Model!= null && Model.BlogPosts.Any())
             {
                 @foreach (var blogpost in Model.BlogPosts)
                 {
-                    <div class="mb-5  bg-light box-shadow p-5">
+                    <div class="mb-5 bg-light box-shadow p-5">
                         <img src="@blogpost.FeatureImageUrl" alt="@blogpost.Heading"
-                            style="display: block; width: 100%; height: auto; class=" mb-3 d-flex img-fluid">
+                             style="width: 100%; height: auto;" class="mb-3 d-flex img-fluid">
                         <h2 class="text-center">@blogpost.Heading</h2>
                         <p class="mb-4">
                             Author: @blogpost.Author
                             <br />
-                            Published Date:  @blogpost.PublishedDate.ToShortDateString()
+                            Published Date: @blogpost.PublishedDate.ToShortDateString()
                         </p>
-
                         <p class="mb-4">
                             @foreach (var tag in blogpost.Tags)
                             {
                                 <span class="badge bg-secondary me-2">@tag.Name</span>
                             }
                         </p>
-
                         <p class="mb-4">@blogpost.ShortDescription</p>
                         <a class="btn btn-dark mb-4" asp-area="" asp-controller="Blogs" asp-action="Index"
-                            asp-route-urlHandle="@blogpost.UrlHandle">Read More</a>
-
+                           asp-route-urlHandle="@blogpost.UrlHandle">Read More</a>
                     </div>
                 }
             }
         </div>
     </div>
 </div>
-￼

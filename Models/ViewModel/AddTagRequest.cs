@@ -5,10 +5,10 @@ namespace Bloggie.Web.Models.ViewModel
 {
     public class AddTagRequest
     {
-        [Required]
+         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
-        [Required]
+         [Required(ErrorMessage = "DisplayName is required")]
         public string DisplayName { get; set; }
         
         public List<Tag> Tags { get; set; }
