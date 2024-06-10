@@ -3,6 +3,7 @@ using Bloggie.Web.Models.ViewModel;
 using Bloggie.Web.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Bloggie.Web.Controllers
 {
@@ -42,9 +43,18 @@ namespace Bloggie.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> List(
+            string? searchQuery,
+            string? sortBy,
+            string? sortDirection)
         {
-            var tags = await tagRepository.GetAllAsync();
+            ViewBag.SearchQuery = searchQuery;
+            ViewBag.sortBy = sortBy;
+            ViewBag.sortDirection = sortDirection;
+            var tags = await tagRepository.GetAllAsync(searchQuery, sortBy, sortDirection);
+            Console.WriteLine($"SearchData: {JsonConvert.SerializeObject(searchQuery)}");
+            Console.WriteLine($"sortBy: {JsonConvert.SerializeObject(sortBy)}");
+            Console.WriteLine($"sortDirection: {JsonConvert.SerializeObject(sortDirection)}");
             return View(tags);
         }
 

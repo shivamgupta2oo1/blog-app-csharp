@@ -31,9 +31,39 @@ public class TagRepository : ITagRepository
         return null;
     }
 
-    public async Task<IEnumerable<Tag>> GetAllAsync()
+    public async Task<IEnumerable<Tag>> GetAllAsync(
+        string? searchQuery,
+        string? sortBy,
+        string? sortDirection)
     {
-        return await bloggieDbContext.Tags.ToListAsync();
+        var query = bloggieDbContext.Tags.AsQueryable();
+
+        //filtering
+        if (string.IsNullOrWhiteSpace(searchQuery) == false)
+        {
+            query = query.Where(x => x.Name.Contains(searchQuery) || x.DisplayName.Contains(searchQuery));
+        }
+
+        //sorting
+
+        if (string.IsNullOrWhiteSpace(sortBy) == false)
+        {
+            var isDesc = string.Equals(sortDirection, "Desc", StringComparison.OrdinalIgnoreCase);
+            if (string.Equals(sortBy, "Name", StringComparison.OrdinalIgnoreCase))
+            {
+                query = isDesc ? query.OrderByDescending(x => x.Name) : query.OrderBy(x => x.Name);
+            }
+             if (string.Equals(sortBy, "DisplayName", StringComparison.OrdinalIgnoreCase))
+            {
+                query = isDesc ? query.OrderByDescending(x => x.DisplayName) : query.OrderBy(x => x.DisplayName);
+            }
+        }
+
+        //pegination
+
+
+        return await query.ToListAsync();
+        // return await bloggieDbContext.Tags.ToListAsync();
     }
 
     public Task<Tag?> GetAsync(Guid id)
