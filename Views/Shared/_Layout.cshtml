@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> signInManager
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,12 +17,141 @@
         type='text/css' />
     <script type='text/javascript'
         src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>
+    <style>
+        /* Custom CSS for Navbar */
+        .navbar {
+            background: linear-gradient(90deg, rgba(36, 36, 62, 1) 0%, rgba(94, 9, 121, 1) 50%, rgba(181, 23, 158, 1) 100%);
+        }
+
+        .navbar-brand,
+        .nav-link,
+        .navbar-text {
+            color: white !important;
+        }
+
+        .navbar-brand:hover,
+        .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+        .navbar .dropdown-menu {
+            background-color: rgba(36, 36, 62, 1);
+        }
+
+        .navbar .dropdown-menu .dropdown-item {
+            color: white;
+        }
+
+        .navbar .dropdown-menu .dropdown-item:hover {
+            background-color: rgba(94, 9, 121, 1);
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            border: none;
+        }
+
+        .btn-danger {
+            background-color: #f44336;
+            border: none;
+        }
+
+        .btn-success {
+            background-color: #008CBA;
+            border: none;
+        }
+
+        .btn-primary:hover,
+        .btn-danger:hover,
+        .btn-success:hover {
+            opacity: 0.8;
+        }
+
+        .navbar-text h1 {
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .full-page-body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .register-form .form-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #181414;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #523e3e;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #b2c2d3;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .form-control:focus {
+            border-color: #80bdff;
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .text-danger {
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .btn-primary {
+            background-color: #ff6739;
+            border: none;
+            color: rgb(223, 199, 199);
+            padding: 0.75rem;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #3ee4f0;
+        }
+
+        /* Responsive Styles */
+        
     </style>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bloggie.Web</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
@@ -36,7 +164,6 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
-
                         @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                         {
                             <li class="nav-item dropdown">
@@ -47,27 +174,26 @@
 
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" asp-area="" asp-controller="AdminTags"
-                                            asp-action="Add">AddTag</a></li>
+                                            asp-action="Add">Add Tag</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="AdminTags"
                                             asp-action="List">Show All Tags</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="AdminBlogPost"
                                             asp-action="Add">Add Blog Post</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="AdminBlogPost"
-                                            asp-action="List">All BlogPosts</a></li>
+                                            asp-action="List">All Blog Posts</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="AdminUser"
-                                            asp-action="List">UsersList</a></li>
+                                            asp-action="List">Users List</a></li>
                                 </ul>
                             </li>
                         }
-
                     </ul>
                     <div class="d-flex align-items-center">
                         @if (signInManager.IsSignedIn(User))
                         {
-                            <div class="me-3 text-light">
+                            <div class="me-3 text-light navbar-text">
                                 <h1>@User?.Identity?.Name</h1>
                             </div>
-                            <a class="btn btn-primary me-3 " asp-area="" asp-controller="Account"
+                            <a class="btn btn-primary me-3" asp-area="" asp-controller="Account"
                                 asp-action="Logout">Logout</a>
                         }
                         else
@@ -89,11 +215,13 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    @* <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - Bloggie.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
+    </footer> *@
+
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

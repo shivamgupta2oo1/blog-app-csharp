@@ -1,8 +1,10 @@
 @model List<Bloggie.Web.Models.Domain.Tag>;
+
 @{
     ViewData["Title"] = "List Page";
+    int nextPage = Convert.ToInt32(ViewBag.pageNumber) + 1;
+    int prevPage = Convert.ToInt32(ViewBag.pageNumber) - 1;
 }
-
 
 <div class="bg-secondary bg-opacity-10 py-2">
     <div class="container">
@@ -21,85 +23,92 @@
    </div>
 </form>
 
-<div class="container py-5" >
-@if(Model!=null&&Model.Any()){
- <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name
-                    <span>
-                        <span>
-                            <a class="btn btn-light"
-                            asp-action="List"
-                            asp-controller="AdminTags"
-                            asp-route-sortBy="Name"
-                            asp-route-sortDirection="Asc"
-                            asp-route-searchQuery = "@ViewBag.searchQuery"
-                            >
-                            <i class="bi bi-arrow-up"></i>
-                            </a>
-                        </span>
-                         <span>
-                            <a class="btn btn-light"
-                            asp-action="List"
-                            asp-controller="AdminTags"
-                            asp-route-sortBy="Name"
-                            asp-route-sortDirection="Desc"
-                            asp-route-searchQuery = "@ViewBag.searchQuery"
-                            >
-                            <i class="bi bi-arrow-down"></i>
-                            </a>
-                        </span>
-                    </span>
-                </th>
-                <th>Display Name
-                    <span>
-                        <span>
-                            <a class="btn btn-light"
-                            asp-action="List"
-                            asp-controller="AdminTags"
-                            asp-route-sortBy="DisplayName"
-                            asp-route-sortDirection="Asc"
-                            asp-route-searchQuery = "@ViewBag.searchQuery"
-                            >
-                            <i class="bi bi-arrow-up"></i>
-                            </a>
-                        </span>
-                         <span>
-                            <a class="btn btn-light"
-                            asp-action="List"
-                            asp-controller="AdminTags"
-                            asp-route-sortBy="DisplayName"
-                            asp-route-sortDirection="Desc"
-                            asp-route-searchQuery = "@ViewBag.searchQuery"
-                            >
-                            <i class="bi bi-arrow-down"></i>
-                            </a>
-                        </span>
-                    </span>
-                </th>
-                <th> </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var tag in Model)
-            {
+<div class="container py-5">
+    @if(Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@tag.Id</td>
-                    <td>@tag.Name</td>
-                    <td>@tag.DisplayName</td>
-                    <td>
-                       <button class="button">
-                        <a asp-area="" asp-controller="AdminTags" asp-action="Edit" asp-route-id="@tag.Id">Edit</a>
-                        </button>
-                    </td>
+                    <th>Id</th>
+                    <th>Name
+                        <span>
+                            <a class="btn btn-light" asp-action="List" asp-controller="AdminTags" asp-route-sortBy="Name" asp-route-sortDirection="Asc" asp-route-searchQuery="@ViewBag.searchQuery">
+                                <i class="bi bi-arrow-up"></i>
+                            </a>
+                            <a class="btn btn-light" asp-action="List" asp-controller="AdminTags" asp-route-sortBy="Name" asp-route-sortDirection="Desc" asp-route-searchQuery="@ViewBag.searchQuery">
+                                <i class="bi bi-arrow-down"></i>
+                            </a>
+                        </span>
+                    </th>
+                    <th>Display Name
+                        <span>
+                            <a class="btn btn-light" asp-action="List" asp-controller="AdminTags" asp-route-sortBy="DisplayName" asp-route-sortDirection="Asc" asp-route-searchQuery="@ViewBag.searchQuery">
+                                <i class="bi bi-arrow-up"></i>
+                            </a>
+                            <a class="btn btn-light" asp-action="List" asp-controller="AdminTags" asp-route-sortBy="DisplayName" asp-route-sortDirection="Desc" asp-route-searchQuery="@ViewBag.searchQuery">
+                                <i class="bi bi-arrow-down"></i>
+                            </a>
+                        </span>
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}else{
-    <p>No Found Any Data</p>
-}
-   
+            </thead>
+            <tbody>
+                @foreach (var tag in Model)
+                {
+                    <tr>
+                        <td>@tag.Id</td>
+                        <td>@tag.Name</td>
+                        <td>@tag.DisplayName</td>
+                        <td>
+                            <button class="button">
+                                <a asp-area="" asp-controller="AdminTags" asp-action="Edit" asp-route-id="@tag.Id">Edit</a>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation example" class="mt-3">
+            <ul class="pagination justify-content-center">
+                @if (prevPage <= 0)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" asp-controller="AdminTags" asp-action="List" asp-route-pageNumber="@prevPage" asp-route-pageSize="@ViewBag.PageSize">Previous</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="AdminTags" asp-action="List" asp-route-sortBy="@ViewBag.sortBy" asp-route-sortDirection="@ViewBag.sortDirection" asp-route-pageNumber="@prevPage" asp-route-pageSize="@ViewBag.PageSize">Previous</a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="AdminTags" asp-action="List" asp-route-pageNumber="@i" asp-route-sortBy="@ViewBag.sortBy" asp-route-sortDirection="@ViewBag.sortDirection" asp-route-pageSize="@ViewBag.PageSize">@i</a>
+                    </li>
+                }
+
+                @if (nextPage > ViewBag.TotalPages)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" asp-controller="AdminTags" asp-action="List" asp-route-pageNumber="@nextPage" asp-route-pageSize="@ViewBag.PageSize">Next</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="AdminTags" asp-action="List" asp-route-pageNumber="@nextPage" asp-route-sortBy="@ViewBag.sortBy" asp-route-sortDirection="@ViewBag.sortDirection" asp-route-pageSize="@ViewBag.PageSize">Next</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+    else
+    {
+        <p>No Data Found</p>
+    }
 </div>
