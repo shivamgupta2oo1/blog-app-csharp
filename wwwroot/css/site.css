@@ -9,7 +9,7 @@ html {
 
 body {
   margin-bottom: 60px;
-  font-family: Arial, sans-serif; /* Change font family */
+  font-family: Arial, sans-serif;
 }
 
 /* Buttons */
@@ -52,6 +52,18 @@ body {
   border-color: #1d2124;
 }
 
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  color: #fff;
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
 /* Form elements */
 .form-control {
   display: block;
@@ -87,9 +99,17 @@ body {
   border-bottom: 2px solid #dee2e6;
 }
 
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
 /* BlogPosts */
 .bg-secondary {
   background-color: #f8f9fa;
+}
+
+.bg-opacity-10 {
+  opacity: 0.1;
 }
 
 .py-2 {

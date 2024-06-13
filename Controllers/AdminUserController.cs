@@ -82,11 +82,7 @@ using Bloggie.Web.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Bloggie.Web.Controllers
 {
@@ -105,9 +101,9 @@ namespace Bloggie.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> List(string? searchQuery)
         {
-            var users = await userRepository.GetAll();
+            var users = await userRepository.GetAll(searchQuery);
             var userViewModel = new UserViewModel
             {
                 Users = new List<User>()
@@ -121,7 +117,11 @@ namespace Bloggie.Web.Controllers
                     EmailAddress = user.Email
                 });
             }
-            return View(userViewModel);
+
+            ViewBag.SearchQuery = searchQuery;
+        
+                return View(userViewModel);
+
         }
 
         [HttpPost]

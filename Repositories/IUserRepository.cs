@@ -4,6 +4,6 @@ namespace Bloggie.Web.Repositories
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<IdentityUser>> GetAll();
+        Task<IEnumerable<IdentityUser>> GetAll(string? searchQuery = null);
     }    
 }

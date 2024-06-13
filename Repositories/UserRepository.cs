@@ -1,6 +1,9 @@
 using Bloggie.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Bloggie.Web.Repositories
 {
@@ -12,15 +15,26 @@ namespace Bloggie.Web.Repositories
         {
             this.authDbContext = authDbContext;
         }
-        public async Task<IEnumerable<IdentityUser>> GetAll()
+
+        public async Task<IEnumerable<IdentityUser>> GetAll(string? searchQuery)
         {
             var users = await authDbContext.Users.ToListAsync();
-            var superAdminUser = await authDbContext.Users.FirstOrDefaultAsync(x => x.Email == "superadmin@bloggie.com");
 
-            if (users != null)
+            // Remove the super admin user
+            var superAdminUser = users.FirstOrDefault(x => x.Email == "superadmin@bloggie.com");
+            if (superAdminUser != null)
             {
                 users.Remove(superAdminUser);
             }
+
+            // Filter by search query if provided
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                users = users.Where(user =>
+                    user.UserName.Contains(searchQuery, System.StringComparison.OrdinalIgnoreCase) ||
+                    user.Email.Contains(searchQuery, System.StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
             return users;
         }
     }

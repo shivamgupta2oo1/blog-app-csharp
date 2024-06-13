@@ -4,11 +4,23 @@
     ViewData["Title"] = "List of Blog Posts";
 }
 
-<div class="bg-secondary py-2">
+<div class="bg-secondary bg-opacity-50 rounded mt-3 py-2">
     <div class="container">
         <h1 class="m-0">All BlogPosts - Admin Functionality</h1>
     </div>
 </div>
+
+
+<form method="get" asp-action="List" asp-controller="AdminBlogPost">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col col-md-3 d-flex">
+                <input type="text" name="searchQuery" class="form-control" value="@ViewBag.SearchQuery">
+                <button type="submit" class="btn btn-warning ms-3">Search</button>
+            </div>
+        </div>
+    </div>
+</form>
 
 <div class="container py-5">
     @if (Model != null && Model.Any())
@@ -17,7 +29,18 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Heading</th>
+                    <th>Heading
+                        <span>
+                            <a class="btn btn-light" asp-action="List" asp-controller="AdminBlogPost" asp-route-sortBy="Heading"
+                                asp-route-sortDirection="Asc" asp-route-searchQuery="@ViewBag.searchQuery">
+                                <i class="bi bi-arrow-up"></i>
+                            </a>
+                            <a class="btn btn-light" asp-action="List" asp-controller="AdminBlogPost" asp-route-sortBy="Heading"
+                                asp-route-sortDirection="Desc" asp-route-searchQuery="@ViewBag.searchQuery">
+                                <i class="bi bi-arrow-down"></i>
+                            </a>
+                        </span>
+                    </th>
                     <th>Tags</th>
                     <th>Action</th>
                 </tr>
@@ -44,7 +67,8 @@
                             }
                         </td>
                         <td>
-                            <a class="btn btn-primary" asp-area="" asp-controller="AdminBlogPost" asp-action="Edit" asp-route-id="@blogPost.Id">Edit</a>
+                            <a class="btn btn-primary" asp-area="" asp-controller="AdminBlogPost" asp-action="Edit"
+                                asp-route-id="@blogPost.Id">Edit</a>
                         </td>
                     </tr>
                 }

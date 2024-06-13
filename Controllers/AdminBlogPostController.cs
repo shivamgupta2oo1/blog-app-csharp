@@ -37,7 +37,7 @@ namespace Bloggie.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddBlogPostRequest addBlogPostRequest)
         {
-            
+
             //Map view model to domain model
             if (ModelState.IsValid == false)
             {
@@ -71,9 +71,13 @@ namespace Bloggie.Web.Controllers
             return RedirectToAction("Add");
         }
 
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> List(string? searchQuery, string? sortBy, string? sortDirection)
         {
-            var blogPost = await blogPostRepository.GetAllAsync();
+            var blogPost = await blogPostRepository.GetAllAsync(searchQuery, sortBy, sortDirection);
+
+            ViewBag.SearchQuery = searchQuery;
+            ViewBag.sortBy = sortBy;
+            ViewBag.sortDirection = sortDirection;
             return View(blogPost);
         }
 

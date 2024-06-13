@@ -5,7 +5,8 @@ namespace Bloggie.Web.Repositories
 
     public interface IBlogPostRepository
     {
-        Task<IEnumerable<BlogPost>> GetAllAsync();
+        Task<IEnumerable<BlogPost>> GetAllAsync(string? searchQuery = null,  string? sortBy = null,
+            string? sortDirection = null);
         Task<BlogPost?> GetAsync(Guid id);
         Task<BlogPost?> GetByUrlHandleAsync(string urlHandle);
         Task<BlogPost> AddAsync(BlogPost blogPost);
