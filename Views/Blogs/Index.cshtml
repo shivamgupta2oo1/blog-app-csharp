@@ -7,7 +7,7 @@
     ViewData["Title"] = "BlogApp";
 }
 
-<div class="container my-5">
+<div class="container my-5 mt-3">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-6">
             @if (Model != null)
@@ -56,7 +56,7 @@
                             <form method="post">
                                 <div class="mb-3">
                                     <label for="form-label">Comment Description</label>
-                                    <input type="text" class="form-control mb-3" asp-for="CommentDescription">
+                                    <input type="text" class="form-control mb-3" asp-for="CommentDescription" required>
                                     <div class="mb-3">
                                         <button type="submit" class="btn btn-dark">Submit</button>
                                         <input type="hidden" asp-for="Id">

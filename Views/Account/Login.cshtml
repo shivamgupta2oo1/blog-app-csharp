@@ -2,11 +2,12 @@
 
 @{
     ViewBag.Title = "Login";
+    var message = ViewBag.Message as string;
+    var messageType = ViewBag.MessageType as string;
 }
 
 <body>
-
-    <div class="full-page-body mt-5">
+    <div class="full-page-body mt-5 box-shadow">
         <div class="form-container">
             <form method="post" asp-action="Login" class="login-form">
                 <h1 class="form-title">Login</h1>
@@ -25,27 +26,44 @@
 
                 <div class="form-group">
                     <div class="text-wrap">
-                        <p class="text-wrap">If User Not Register Then Move To The ? <a   asp-controller="Account"
-                             asp-action="Register">Register Page</a></p>
+                        <p class="text-wrap">If User Not Register Then Move To The ? <a asp-controller="Account"
+                                asp-action="Register">Register Page</a></p>
                     </div>
-
                     <button type="submit" class="btn btn-primary text-dark fs-5 fw-bold">Login</button>
                 </div>
             </form>
         </div>
     </div>
 
+
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
+        <script>
+            function showSweetAlert(type, message) {
+                Swal.fire({
+                    icon: type,
+                    title: message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+
+            $(document).ready(function () {
+                var message = '@message';
+                var messageType = '@messageType';
+                if (message && messageType) {
+                    showSweetAlert(messageType, message);
+                }
+            });
+        </script>
     }
 </body>
 
 <style>
-    /* Add your CSS styles here */
     body {
-        background-color: rgb(177 236 255);
+        background-color: rgb(177, 236, 255);
     }
 
     body,
@@ -60,6 +78,8 @@
         align-items: center;
         justify-content: center;
         height: 100%;
+        padding: 20px;
+        box-sizing: border-box;
     }
 
     .form-container {
@@ -110,9 +130,10 @@
     }
 
     .btn-primary {
-        background-color: #ff6739;
+        background-color: #4CAF50;
+        /* Matching navbar button color */
         border: none;
-        color: rgb(223, 199, 199);
+        color: white;
         padding: 0.75rem;
         width: 100%;
         border-radius: 5px;

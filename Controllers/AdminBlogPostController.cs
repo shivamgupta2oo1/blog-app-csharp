@@ -66,9 +66,10 @@ namespace Bloggie.Web.Controllers
                     }
                 }
                 blogPost.Tags = SelectedTags;
+                await Task.Delay(2000);
                 await blogPostRepository.AddAsync(blogPost);
             }
-            return RedirectToAction("Add");
+            return RedirectToAction("List");
         }
 
         public async Task<IActionResult> List(string? searchQuery, string? sortBy, string? sortDirection)
@@ -151,6 +152,7 @@ namespace Bloggie.Web.Controllers
 
             if (UpdateEdit != null)
             {
+                await Task.Delay(1000);
                 return RedirectToAction("List");
             }
             return RedirectToAction("Edit");
@@ -161,6 +163,7 @@ namespace Bloggie.Web.Controllers
             var deleteBlogPost = await blogPostRepository.DeleteAsync(editBlogPostRequest.Id);
             if (deleteBlogPost != null)
             {
+                await Task.Delay(1000);
                 return RedirectToAction("List");
             }
             return RedirectToAction("Edit", new { id = editBlogPostRequest.Id });

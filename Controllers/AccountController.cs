@@ -24,34 +24,36 @@ namespace Bloggie.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
-            if (ModelState.IsValid)
+            var identityUser = new IdentityUser
             {
-                var identityUser = new IdentityUser
+                UserName = registerViewModel.Username,
+                Email = registerViewModel.Email
+            };
+
+            var identityResult = await userManager.CreateAsync(identityUser, registerViewModel.Password);
+
+            if (identityResult.Succeeded)
+            {
+                var roleIdentityResult = await userManager.AddToRoleAsync(identityUser, "User");
+
+                if (roleIdentityResult.Succeeded)
                 {
-                    UserName = registerViewModel.Username,
-                    Email = registerViewModel.Email
-                };
-
-                var identityResult = await userManager.CreateAsync(identityUser, registerViewModel.Password);
-
-                if (identityResult.Succeeded)
-                {
-                    var roleIdentityResult = await userManager.AddToRoleAsync(identityUser, "User");
-
-                    if (roleIdentityResult.Succeeded)
-                    {
-                        return RedirectToAction("Register");
-                    }
-                }
-
-                foreach (var error in identityResult.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    TempData["Message"] = "🎉 Successfully registered! Welcome aboard! 🚀";
+                    TempData["MessageType"] = "success";
+                    return RedirectToAction("Login");
                 }
             }
 
+            foreach (var error in identityResult.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            TempData["Message"] = "⛔️ Registration error: Invalid ID or password. Please try again. 🔑";
+            TempData["MessageType"] = "error";
+
             return View(registerViewModel);
         }
+
 
 
         [HttpGet]
@@ -59,7 +61,7 @@ namespace Bloggie.Web.Controllers
         {
             var model = new LoginViewModel
             {
-                ReturnUrl = ReturnUrl
+                ReturnUrl = ReturnUrl,
             };
             return View(model);
         }
@@ -78,6 +80,11 @@ namespace Bloggie.Web.Controllers
                         return Redirect(loginViewModel.ReturnUrl);
                     }
                     return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.Message = "🔑 Your password is ❌";
+                    ViewBag.MessageType = "error"; // Types: success, error, warning, info, question
                 }
 
             }

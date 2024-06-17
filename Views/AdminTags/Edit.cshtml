@@ -5,23 +5,24 @@
 }
 
 
-<div class="bg-secondary bg-opacity-10 py-2">
+<div class="bg-secondary bg-opacity-50 rounded mt-3 py-2">
     <div class="container">
         <h1>Edit Tag - Admin Functionality</h1>
     </div>
 </div>
 
-<div class="container py-5">
+
+<div class="container py-5 box-shadow mt-3">
     @if (Model != null)
     {
         <form method="post">
             <div class="mb-3">
                 <label for="form-label">Id</label>
-                <input type="text" class="form-control" id="name" name="id" asp-for="Id" required asp/>
+                <input type="text" class="form-control" id="name" name="id" asp-for="Id" readonly />
             </div>
             <div class="mb-3">
                 <label for="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" asp-for="Name" required/>
+                <input type="text" class="form-control" id="name" name="name" asp-for="Name" required />
             </div>
 
             <div class="mb-3">
@@ -31,9 +32,9 @@
 
             <div class="mb-3">
                 <div class="d-flex">
-                    <button type="submit" class="btn btn-dark button">Update</button>
+                    <button type="submit" class="btn btn-dark button" id="tagEdited">Update</button>
                     <button type="submit" class="btn btn-danger ms-2 button" asp-area="" asp-controller="AdminTags"
-                        asp-action="Delete">Delete</button>
+                        asp-action="Delete" id="tagDeleted">Delete</button>
                 </div>
             </div>
         </form>
@@ -43,3 +44,44 @@
         <p>Tags Not Found!</p>
     }
 </div>
+
+
+@section Scripts {
+    <script>
+        // Function to show SweetAlert with timer
+        function showSweetAlert(type, message) {
+            Swal.fire({
+                icon: type,
+                title: message,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+
+        // Event listener for tag edit button
+        var tagEdited = document.getElementById('tagEdited');
+        if (tagEdited) {
+            tagEdited.addEventListener('click', function () {
+                showSweetAlert('success', '✅ Tag edited successfully! 🎉🏷️');
+            });
+        }
+
+        // Event listener for tag delete button
+        var tagDeleted = document.getElementById('tagDeleted');
+        if (tagDeleted) {
+            tagDeleted.addEventListener('click', function () {
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        showSweetAlert('success', '✅ Tag deleted successfully!');
+                    }
+                });
+            });
+        }
+    </script>
+}

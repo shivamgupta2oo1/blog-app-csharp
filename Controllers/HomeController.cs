@@ -25,7 +25,12 @@ public class HomeController : Controller
         {
             BlogPosts = blogPosts,
             Tags = tags,
+            PublishedDate = DateTime.Now
         };
+
+        ViewBag.Message = "Welcome to Home Page BlogApp!";
+        ViewBag.MessageType = "success"; // Types: success, error, warning, info, question
+
         return View(model);
     }
 }

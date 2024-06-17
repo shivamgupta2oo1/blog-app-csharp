@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Bloggie.Web.Models.Domain;
 
 namespace Bloggie.Web.Models.ViewModel
 {

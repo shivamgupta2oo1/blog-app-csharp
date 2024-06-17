@@ -441,3 +441,5 @@
 /home/algo66/newfolder/blog-app-csharp/obj/Debug/net8.0/Bloggie.Web.pdb
 /home/algo66/newfolder/blog-app-csharp/obj/Debug/net8.0/Bloggie.Web.genruntimeconfig.cache
 /home/algo66/newfolder/blog-app-csharp/obj/Debug/net8.0/ref/Bloggie.Web.dll
+/home/algo66/newfolder/blog-app-csharp/bin/Debug/net8.0/package-lock.json
+/home/algo66/newfolder/blog-app-csharp/bin/Debug/net8.0/package.json

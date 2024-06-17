@@ -1,7 +1,10 @@
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using Bloggie.Web.Models.Domain;
 using Bloggie.Web.Models.ViewModel;
 using Bloggie.Web.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -42,6 +45,8 @@ namespace Bloggie.Web.Controllers
             return RedirectToAction("List");
         }
 
+
+
         [HttpGet]
         public async Task<IActionResult> List(
             string? searchQuery,
@@ -72,9 +77,9 @@ namespace Bloggie.Web.Controllers
             ViewBag.sortBy = sortBy;
             ViewBag.sortDirection = sortDirection;
             var tags = await tagRepository.GetAllAsync(searchQuery, sortBy, sortDirection, pageNumber, pageSize);
-            Console.WriteLine($"SearchData: {JsonConvert.SerializeObject(searchQuery)}");
-            Console.WriteLine($"sortBy: {JsonConvert.SerializeObject(sortBy)}");
-            Console.WriteLine($"sortDirection: {JsonConvert.SerializeObject(sortDirection)}");
+            // Console.WriteLine($"SearchData: {JsonConvert.SerializeObject(searchQuery)}");
+            // Console.WriteLine($"sortBy: {JsonConvert.SerializeObject(sortBy)}");
+            // Console.WriteLine($"sortDirection: {JsonConvert.SerializeObject(sortDirection)}");
             return View(tags);
         }
 
@@ -109,6 +114,7 @@ namespace Bloggie.Web.Controllers
             if (updatedTag != null)
             {
                 //show success notification"
+                await Task.Delay(2000);
                 return RedirectToAction("List");
             }
             else
@@ -124,13 +130,13 @@ namespace Bloggie.Web.Controllers
             var deleteTag = await tagRepository.DeleteAsync(editTagRequest.Id);
             if (deleteTag != null)
             {
-                //show success notification
+               await Task.Delay(3000);
             }
             else
             {
                 //show error notification
             }
-            return RedirectToAction("Edit", new { id = editTagRequest.Id });
+            return RedirectToAction("List", new { id = editTagRequest.Id });
         }
         public void validateAddTagRequest(AddTagRequest request)
         {

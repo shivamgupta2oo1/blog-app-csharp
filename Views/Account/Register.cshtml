@@ -2,9 +2,11 @@
 
 @{
     ViewBag.Title = "Register";
+     var message = TempData["Message"] as string;
+    var messageType = TempData["MessageType"] as string;
 }
 
-<div class="full-page-body mt-5">
+<div class="full-page-body mt-5 box-shadow">
     <div class="form-container">
         <form method="post" asp-action="Register" class="register-form">
             <h1 class="form-title">Register</h1>
@@ -28,8 +30,9 @@
             </div>
 
             <div class="form-group">
-                <p class="text-wrap">If User Already Register Move To The <a asp-controller="Account" asp-action="Login">Login Page</a></p>
-                <button type="submit" class="btn btn-primary text-dark fs-5 fw-bold">Register</button>
+                <p class="text-wrap">If User Already Register Move To The <a asp-controller="Account"
+                        asp-action="Login">Login Page</a></p>
+                <button type="submit" class="btn btn-primary text-dark fs-5 fw-bold" id="RegUser">Register</button>
             </div>
         </form>
     </div>
@@ -39,7 +42,32 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+<script>
+    function showSweetAlert(type, message) {
+        Swal.fire({
+            icon: type,
+            title: message,
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
+    $(document).ready(function () {
+        // Simulated variables for demonstration, replace with actual data from your server
+        var message = '@message'; // Replace with your server-side message variable
+        var messageType = '@messageType'; // Replace with your server-side messageType variable
+
+        // Check if message and messageType are not empty
+        if (message && messageType) {
+            showSweetAlert(messageType, message);
+        }
+    });
+</script>
 }
+
+
+
+
+
 
 <style>
     /* General Styles */
@@ -109,7 +137,7 @@
     .btn-primary {
         background-color: #ff6739;
         border: none;
-        color: rgb(223, 199, 199);
+        color: white;
         padding: 0.75rem;
         width: 100%;
         border-radius: 5px;
@@ -121,4 +149,4 @@
     .btn-primary:hover {
         background-color: #3ee4f0;
     }
-   </style>
+</style>

@@ -119,8 +119,8 @@ namespace Bloggie.Web.Controllers
             }
 
             ViewBag.SearchQuery = searchQuery;
-        
-                return View(userViewModel);
+
+            return View(userViewModel);
 
         }
 
@@ -210,6 +210,7 @@ namespace Bloggie.Web.Controllers
                 var identityResult = await userManager.DeleteAsync(user);
                 if (identityResult != null && identityResult.Succeeded)
                 {
+                    await Task.Delay(2000);
                     return RedirectToAction("List", "AdminUser");
                 }
             }
