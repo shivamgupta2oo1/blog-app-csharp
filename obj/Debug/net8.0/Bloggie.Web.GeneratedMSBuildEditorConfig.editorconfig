@@ -9,83 +9,83 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Bloggie.Web
 build_property.RootNamespace = Bloggie.Web
-build_property.ProjectDir = /home/algo66/newfolder/blog-app-csharp/
+build_property.ProjectDir = /home/algo66/shivam/BLOGNEW/blog-app-csharp/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /home/algo66/newfolder/blog-app-csharp
+build_property.MSBuildProjectDirectory = /home/algo66/shivam/BLOGNEW/blog-app-csharp
 build_property._RazorSourceGeneratorDebug = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/Account/AccessDenied.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/Account/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9BY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/Account/Login.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/Account/Register.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9SZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/AdminBlogPost/Add.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/AdminBlogPost/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5CbG9nUG9zdC9BZGQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/AdminBlogPost/Edit.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/AdminBlogPost/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5CbG9nUG9zdC9FZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/AdminBlogPost/List.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/AdminBlogPost/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5CbG9nUG9zdC9MaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/AdminTags/Add.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/AdminTags/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5UYWdzL0FkZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/AdminTags/Edit.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/AdminTags/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5UYWdzL0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/AdminTags/List.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/AdminTags/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5UYWdzL0xpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/AdminUser/List.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/AdminUser/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5Vc2VyL0xpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/Blogs/Index.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/Blogs/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmxvZ3MvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/Home/Index.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/Shared/Error.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/Shared/_ValidationScriptsPartial.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/SmtpEmail/Index.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/SmtpEmail/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU210cEVtYWlsL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/_ViewImports.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/_ViewStart.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/algo66/newfolder/blog-app-csharp/Views/Shared/_Layout.cshtml]
+[/home/algo66/shivam/BLOGNEW/blog-app-csharp/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-dww18lclp7

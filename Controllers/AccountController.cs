@@ -1,11 +1,7 @@
-﻿using System;
-using System.Net.Mail;
-using System.Threading.Tasks;
+﻿using System.Net.Mail;
 using Bloggie.Web.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace Bloggie.Web.Controllers
 {
@@ -84,10 +80,106 @@ namespace Bloggie.Web.Controllers
                 var message = new MailMessage
                 {
                     From = new MailAddress(fromEmail),
-                    Subject = "Welcome to Bloggie!",
-                    Body = $"Dear {userEmail},<br><br>Thank you for registering with Bloggie.",
+                    Subject = "Regiatration Suuccessfully to the  Bloogie!",
+                    Body = $@"
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <style>
+        body {{
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }}
+        .container {{
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }}
+        .header {{
+            text-align: center;
+            background-color: #007BFF;
+            padding: 10px;
+            border-radius: 10px 10px 0 0;
+            color: #fff;
+        }}
+        .header h1 {{
+            margin: 0;
+            font-size: 24px;
+        }}
+        .content {{
+            padding: 20px;
+            background-color: #ffffff;
+        }}
+        .content p {{
+            font-size: 16px;
+            color: #555;
+        }}
+        .content ul {{
+            padding-left: 20px;
+        }}
+        .content ul li {{
+            margin-bottom: 10px;
+        }}
+        .content ul li strong {{
+            color: #007BFF;
+        }}
+        .footer {{
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+        }}
+        .footer a {{
+            color: #007BFF;
+            text-decoration: none;
+        }}
+        .footer a:hover {{
+            text-decoration: underline;
+        }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1>Welcome to Bloogie!</h1>
+        </div>
+        <div class='content'>
+            <p>Dear {userEmail},</p>
+            <p>Welcome to Bloogie! 🎉</p>
+            <p>Thank you for registering with us. We're thrilled to have you as part of our community. At Bloogie, we believe in the power of words and the magic of storytelling. Whether you're here to share your thoughts, discover new ideas, or connect with like-minded individuals, you've come to the right place.</p>
+            <p>Here's what you can look forward to:</p>
+            <ul>
+                <li><strong>Inspiring Content:</strong> Dive into a world of engaging articles, insightful opinions, and creative pieces.</li>
+                <li><strong>Community Connection:</strong> Join discussions, interact with authors, and make new friends.</li>
+                <li><strong>Personalized Experience:</strong> Customize your feed to match your interests and preferences.</li>
+            </ul>
+            <p>To get started, simply log in to your account and explore all that Bloogie has to offer. If you have any questions or need assistance, our support team is here to help.</p>
+            <p>Happy blogging!</p>
+            <p>Warm regards,</p>
+            <p>The Bloogie Team</p>
+        </div>
+        <div class='footer'>
+            <p>Stay connected with us on social media:</p>
+            <p>
+                <a href='#'>Facebook</a> | 
+                <a href='#'>Twitter</a> | 
+                <a href='#'>Instagram</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+",
                     IsBodyHtml = true
                 };
+
 
                 message.To.Add(new MailAddress(userEmail));
 
@@ -128,8 +220,10 @@ namespace Bloggie.Web.Controllers
 
                 if (signInResult != null && signInResult.Succeeded)
                 {
-                    await SendLoginEmailAsync(loginViewModel.Username);
-
+                    if (!User.IsInRole("SuperAdmin") || !User.IsInRole("Admin"))
+                    {
+                        await SendLoginEmailAsync(loginViewModel.Username);
+                    }
                     if (!string.IsNullOrWhiteSpace(loginViewModel.ReturnUrl))
                     {
                         return Redirect(loginViewModel.ReturnUrl);
@@ -156,10 +250,84 @@ namespace Bloggie.Web.Controllers
                 var message = new MailMessage
                 {
                     From = new MailAddress(fromEmail),
-                    Subject = "Login Notification",
-                    Body = $"Dear {username},<br><br>You have successfully logged in to Bloggie.",
+                    Subject = "Login Successfully to the Bloogie!",
+                    Body = $@"
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }}
+        .container {{
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }}
+        .header {{
+            text-align: center;
+        }}
+        .header h1 {{
+            color: #007BFF;
+        }}
+        .content {{
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }}
+        .footer {{
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+        }}
+        .footer a {{
+            color: #007BFF;
+            text-decoration: none;
+        }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1>Welcome Back to Bloogie!</h1>
+        </div>
+        <div class='content'>
+            <p>Dear {username},</p>
+            <p>We're delighted to see you back on Bloogie! 🎉</p>
+            <p>Whether you're here to continue your blogging journey, catch up on the latest articles, or connect with your favorite authors, we're excited to have you back.</p>
+            <p>Here's a reminder of what you can do:</p>
+            <ul>
+                <li><strong>Explore New Content:</strong> Discover fresh and inspiring articles from a variety of topics.</li>
+                <li><strong>Reconnect with the Community:</strong> Engage with other members, comment on posts, and join discussions.</li>
+                <li><strong>Personalize Your Experience:</strong> Adjust your settings to see the content that matters most to you.</li>
+            </ul>
+            <p>If you have any questions or need assistance, our support team is always here to help.</p>
+            <p>Happy blogging!</p>
+            <p>Warm regards,</p>
+            <p>The Bloogie Team</p>
+        </div>
+        <div class='footer'>
+            <p>Stay connected with us on social media: 
+                <a href='#'>Facebook</a> | 
+                <a href='#'>Twitter</a> | 
+                <a href='#'>Instagram</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+",
                     IsBodyHtml = true
                 };
+
 
                 message.To.Add(new MailAddress(fromEmail)); // Send notification to the user's own email
 

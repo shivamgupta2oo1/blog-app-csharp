@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Register";
-     var message = TempData["Message"] as string;
+    var message = TempData["Message"] as string;
     var messageType = TempData["MessageType"] as string;
 }
 
@@ -52,11 +52,8 @@
         });
     }
     $(document).ready(function () {
-        // Simulated variables for demonstration, replace with actual data from your server
-        var message = '@message'; // Replace with your server-side message variable
-        var messageType = '@messageType'; // Replace with your server-side messageType variable
-
-        // Check if message and messageType are not empty
+        var message = '@message';
+        var messageType = '@messageType';
         if (message && messageType) {
             showSweetAlert(messageType, message);
         }
