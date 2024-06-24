@@ -1,25 +1,94 @@
 @model Bloggie.Web.Models.ViewModel.EmailEntity
 
 @{
-    ViewData["Title"] = "Create Email";
+    ViewData["Title"] = "Email Actions";
 }
-<div class="mt-3">
-    <h2>Create Email</h2>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Create Email</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" asp-action="SendEmail">
+                        <div class="form-group">
+                            <label for="ToEmailAddress">To Email Address</label>
+                            <input type="email" class="form-control" id="ToEmailAddress" name="ToEmailAddress" asp-for="ToEmailAddress">
+                            <span asp-validation-for="ToEmailAddress" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="Subject">Subject</label>
+                            <input type="text" class="form-control" id="Subject" name="Subject" asp-for="Subject">
+                            <span asp-validation-for="Subject" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="EmailBodyMessage">Email Body</label>
+                            <textarea class="form-control" id="EmailBodyMessage" name="EmailBodyMessage" rows="5" asp-for="EmailBodyMessage"></textarea>
+                            <span asp-validation-for="EmailBodyMessage" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Email</button>
+                    </form>
+                </div>
+            </div>
+
+            @if (ViewBag.EmailSentSuccess != null && (bool)ViewBag.EmailSentSuccess)
+            {
+                <script>
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your email has been sent",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                </script>
+            }
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h2 class="mb-0">Retrieve Emails</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-action="RetrieveEmails">
+                        <button type="submit" class="btn btn-secondary">Retrieve Emails</button>
+                    </form>
+                    @if (ViewBag.Emails != null)
+                    {
+                        <div class="mt-3">
+                            <h3>Received Emails</h3>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>From</th>
+                                            <th>Subject</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var email in ViewBag.Emails)
+                                        {
+                                            <tr>
+                                                <td>@email.From</td>
+                                                <td>@email.Subject</td>
+                                                <td>@email.Date</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-
-<form method="post" enctype="multipart/form-data" asp-action="SendEmail">
-    <div class="form-group">
-        <label for="ToEmailAddress">To Email Address</label>
-        <input type="email" class="form-control" id="ToEmailAddress" name="ToEmailAddress" asp-for="ToEmailAddress">
-    </div>
-    <div class="form-group">
-        <label for="Subject">Subject</label>
-        <input type="text" class="form-control" id="Subject" name="Subject" asp-for="Subject">
-    </div>
-    <div class="form-group">
-        <label for="EmailBodyMessage">Email Body</label>
-        <textarea class="form-control" id="EmailBodyMessage" name="EmailBodyMessage" rows="3" asp-for="EmailBodyMessage"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Send Email</button>
-</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

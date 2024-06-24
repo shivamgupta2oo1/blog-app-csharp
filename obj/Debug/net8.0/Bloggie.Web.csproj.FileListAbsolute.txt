@@ -558,3 +558,6 @@
 /home/algo66/shivam/BLOGNEW/blog-app-csharp/obj/Debug/net8.0/Bloggie.Web.pdb
 /home/algo66/shivam/BLOGNEW/blog-app-csharp/obj/Debug/net8.0/Bloggie.Web.genruntimeconfig.cache
 /home/algo66/shivam/BLOGNEW/blog-app-csharp/obj/Debug/net8.0/ref/Bloggie.Web.dll
+/home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
+/home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/MailKit.dll
+/home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/MimeKit.dll

@@ -4,21 +4,19 @@
     ViewData["Title"] = "Edit Tags";
 }
 
-
 <div class="bg-secondary bg-opacity-50 rounded mt-3 py-2">
     <div class="container">
         <h1>Edit Tag - Admin Functionality</h1>
     </div>
 </div>
 
-
 <div class="container py-5 box-shadow mt-3">
     @if (Model != null)
     {
-        <form method="post">
+        <form id="editTagForm" method="post">
             <div class="mb-3">
                 <label for="form-label">Id</label>
-                <input type="text" class="form-control" id="name" name="id" asp-for="Id" readonly />
+                <input type="text" class="form-control" id="id" name="id" asp-for="Id" readonly />
             </div>
             <div class="mb-3">
                 <label for="form-label">Name</label>
@@ -33,8 +31,7 @@
             <div class="mb-3">
                 <div class="d-flex">
                     <button type="submit" class="btn btn-dark button" id="tagEdited">Update</button>
-                    <button type="submit" class="btn btn-danger ms-2 button" asp-area="" asp-controller="AdminTags"
-                        asp-action="Delete" id="tagDeleted">Delete</button>
+                    <button type="button" class="btn btn-danger ms-2 button" id="tagDeleted">Delete</button>
                 </div>
             </div>
         </form>
@@ -44,7 +41,6 @@
         <p>Tags Not Found!</p>
     }
 </div>
-
 
 @section Scripts {
     <script>
@@ -61,23 +57,51 @@
         // Event listener for tag edit button
         var tagEdited = document.getElementById('tagEdited');
         if (tagEdited) {
-            tagEdited.addEventListener('click', function () {
-                showSweetAlert('success', '✅ Tag edited successfully! 🎉🏷️');
+            tagEdited.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                Swal.fire({
+                    title: "Do you want to save the changes?",
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "Save",
+                    denyButtonText: `Don't save`
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('editTagForm').submit(); // Submit the form
+                        Swal.fire("Saved!", "", "success");
+                    } else if (result.isDenied) {
+                        Swal.fire("Changes are not saved", "", "info");
+                        window.location.href = '@Url.Action("List", "AdminTags")'; // Redirect to list page
+                    }
+                });
             });
         }
 
         // Event listener for tag delete button
         var tagDeleted = document.getElementById('tagDeleted');
         if (tagDeleted) {
-            tagDeleted.addEventListener('click', function () {
+            tagDeleted.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
                 Swal.fire({
                     title: "Are you sure?",
                     text: "You won't be able to revert this!",
                     icon: "warning",
+                    showCancelButton: true,
                     confirmButtonColor: "#3085d6",
-                    confirmButtonText: "Yes, delete it!"
-                    }).then((result) => {
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "Cancel"
+                }).then((result) => {
                     if (result.isConfirmed) {
+                        // Create a form to submit the delete request
+                        var form = document.createElement('form');
+                        form.method = 'post';
+                        form.action = '@Url.Action("Delete", "AdminTags", new { id = Model.Id })';
+                        document.body.appendChild(form);
+                        form.submit(); // Submits the form to delete the tag
+
                         showSweetAlert('success', '✅ Tag deleted successfully!');
                     }
                 });

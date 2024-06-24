@@ -21,6 +21,12 @@ namespace Bloggie.Web.Repositories
             return blogPostLike;
         }
 
+         public async Task<BlogPostLike> GetLikeByUserAndBlogPostAsync(Guid userId, Guid blogPostId)
+    {
+        return await bloggieDbContext.BlogPostLike
+            .FirstOrDefaultAsync(like => like.UserId == userId && like.BlogPostId == blogPostId);
+    }
+
         public async Task<IEnumerable<BlogPostLike>> GetLikeForBlog(Guid blogPostId)
         {
             return await bloggieDbContext.BlogPostLike.Where(x => x.BlogPostId == blogPostId).ToListAsync();
