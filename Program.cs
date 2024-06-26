@@ -9,13 +9,20 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<BloggieDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("BloggieDbConnectionString")));
+// Configure the BloggieDbContext to use PostgreSQL
+builder.Services.AddDbContext<BloggieDbContext>(options => 
+    options.UseNpgsql(builder.Configuration.GetConnectionString("BloggieDbConnectionString")));
 
-builder.Services.AddDbContext<AuthDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("BloggieAuthDbConnectionString")));
+// Configure the AuthDbContext to use PostgreSQL
+builder.Services.AddDbContext<AuthDbContext>(options => 
+    options.UseNpgsql(builder.Configuration.GetConnectionString("BloggieAuthDbConnectionString")));
 
+// Configure Identity with default options and entity framework stores
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-.AddEntityFrameworkStores<AuthDbContext>();
+    .AddEntityFrameworkStores<AuthDbContext>()
+    .AddDefaultTokenProviders();
 
+// Configure custom repositories
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
 builder.Services.AddScoped<IImageRepository, CloudinaryImageRepository>();
@@ -23,6 +30,7 @@ builder.Services.AddScoped<IBlogPostLikeRepository, BlogPostLikeRepository>();
 builder.Services.AddScoped<IBlogPostCommentRepository, BlogPostCommentRepository>(); 
 builder.Services.AddScoped<IUserRepository, UserRepository>(); 
 
+// Configure Identity options
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = true;
@@ -39,7 +47,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -55,6 +62,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{urlHandler?}");
 
 app.Run();
-
-// Change the port number here
-app.Run("http://localhost:5248");

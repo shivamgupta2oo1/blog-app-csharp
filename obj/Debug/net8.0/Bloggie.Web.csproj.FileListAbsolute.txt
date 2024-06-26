@@ -561,3 +561,4 @@
 /home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
 /home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/MailKit.dll
 /home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/MimeKit.dll
+/home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/HtmlAgilityPack.dll

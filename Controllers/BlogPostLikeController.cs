@@ -177,15 +177,11 @@ namespace Bloggie.Web.Controllers
 
         private async Task<User> GetUserByIdAsync(Guid userId)
         {
-            // Implement this method to get the user details from your user repository
-            // For demonstration, returning a dummy user
             return await Task.FromResult(new User { EmailAddress = "user@example.com" });
         }
 
         private async Task<BlogPost> GetBlogPostByIdAsync(Guid blogPostId)
         {
-            // Implement this method to get the blog post details from your blog post repository
-            // For demonstration, returning a dummy blog post
             return await Task.FromResult(new BlogPost { Heading = "Sample Blog Post" });
         }
 

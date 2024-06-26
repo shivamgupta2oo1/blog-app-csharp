@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bloggie.Web.Migrations
 {
     [DbContext(typeof(BloggieDbContext))]
-    [Migration("20240603064805_NewAllUpdates")]
-    partial class NewAllUpdates
+    [Migration("20240626055019_AddReceivedEmailsTable")]
+    partial class AddReceivedEmailsTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,6 +128,32 @@ namespace Bloggie.Web.Migrations
                     b.HasIndex("BlogPostId");
 
                     b.ToTable("BlogPostLike");
+                });
+
+            modelBuilder.Entity("Bloggie.Web.Models.Domain.ReceivedEmails", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("From")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReceivedEmails");
                 });
 
             modelBuilder.Entity("Bloggie.Web.Models.Domain.Tag", b =>

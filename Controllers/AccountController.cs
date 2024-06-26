@@ -1,7 +1,7 @@
 ﻿using System.Net.Mail;
-using Bloggie.Web.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Bloggie.Web.Models.ViewModel;
 
 namespace Bloggie.Web.Controllers
 {
@@ -12,7 +12,9 @@ namespace Bloggie.Web.Controllers
         private readonly IConfiguration _configuration;
         private readonly ILogger<AccountController> _logger;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
+        public AccountController(
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
             IConfiguration configuration,
             ILogger<AccountController> logger)
         {
@@ -33,29 +35,27 @@ namespace Bloggie.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var identityUser = new IdentityUser
+                var user = new IdentityUser
                 {
                     UserName = registerViewModel.Username,
                     Email = registerViewModel.Email
                 };
 
-                var identityResult = await _userManager.CreateAsync(identityUser, registerViewModel.Password);
-
-                if (identityResult.Succeeded)
+                var result = await _userManager.CreateAsync(user, registerViewModel.Password);
+                if (result.Succeeded)
                 {
-                    var roleIdentityResult = await _userManager.AddToRoleAsync(identityUser, "User");
+                    await _userManager.AddToRoleAsync(user, "User");
 
-                    if (roleIdentityResult.Succeeded)
+                    if (!_signInManager.IsSignedIn(User) && User.IsInRole("SuperAdmin"))
                     {
                         await SendRegistrationEmailAsync(registerViewModel.Email);
-
-                        TempData["Message"] = "🎉 Successfully registered! Welcome aboard! 🚀";
-                        TempData["MessageType"] = "success";
-                        return RedirectToAction("Login");
                     }
-                }
 
-                foreach (var error in identityResult.Errors)
+                    TempData["Message"] = "🎉 Successfully registered! Welcome aboard! 🚀";
+                    TempData["MessageType"] = "success";
+                    return RedirectToAction("Login");
+                }
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
@@ -66,16 +66,17 @@ namespace Bloggie.Web.Controllers
             return View(registerViewModel);
         }
 
+
         private async Task SendRegistrationEmailAsync(string userEmail)
         {
             try
             {
-                var emailConfig = _configuration.GetSection("EmailConfig");
-                var username = emailConfig.GetValue<string>("Username");
-                var password = emailConfig.GetValue<string>("Password");
-                var host = emailConfig.GetValue<string>("Host");
+                var emailConfig = _configuration.GetSection("EmailConfig").GetSection("Smtp");
+                var username = emailConfig["Username"];
+                var password = emailConfig["Password"];
+                var host = emailConfig["Host"];
                 var port = emailConfig.GetValue<int>("Port");
-                var fromEmail = emailConfig.GetValue<string>("FromEmail");
+                var fromEmail = emailConfig["FromEmail"];
 
                 var message = new MailMessage
                 {
@@ -183,15 +184,14 @@ namespace Bloggie.Web.Controllers
 
                 message.To.Add(new MailAddress(userEmail));
 
-                using (var mailClient = new SmtpClient(host, port))
+                using (var client = new SmtpClient(host, port))
                 {
-                    mailClient.UseDefaultCredentials = false;
-                    mailClient.Credentials = new System.Net.NetworkCredential(username, password);
-                    mailClient.EnableSsl = true; // Enable SSL/TLS
-                    mailClient.Timeout = 30000; // Set timeout to 30 seconds
-                    mailClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new System.Net.NetworkCredential(username, password);
+                    client.EnableSsl = true;
+                    client.Timeout = 30000;
 
-                    await mailClient.SendMailAsync(message);
+                    await client.SendMailAsync(message);
                 }
             }
             catch (Exception ex)
@@ -201,51 +201,59 @@ namespace Bloggie.Web.Controllers
             }
         }
 
+
         [HttpGet]
-        public IActionResult Login(string ReturnUrl)
+        public IActionResult Login(string returnUrl = null)
         {
-            var model = new LoginViewModel
-            {
-                ReturnUrl = ReturnUrl,
-            };
-            return View(model);
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
+
             if (ModelState.IsValid)
             {
-                var signInResult = await _signInManager.PasswordSignInAsync(loginViewModel.Username, loginViewModel.Password, false, false);
-
-                if (signInResult != null && signInResult.Succeeded)
+                var result = await _signInManager.PasswordSignInAsync(loginViewModel.Username, loginViewModel.Password, false, lockoutOnFailure: false);
+                if (result.Succeeded)
                 {
-                    if (!User.IsInRole("SuperAdmin") || !User.IsInRole("Admin"))
+
+                    if (!_signInManager.IsSignedIn(User) && User.IsInRole("SuperAdmin"))
                     {
                         await SendLoginEmailAsync(loginViewModel.Username);
                     }
-                    if (!string.IsNullOrWhiteSpace(loginViewModel.ReturnUrl))
+
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {
-                        return Redirect(loginViewModel.ReturnUrl);
+                        return Redirect(returnUrl);
                     }
-                    return RedirectToAction("Index", "Home");
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
-                    ViewBag.Message = "🔑 Your password is ❌";
-                    ViewBag.MessageType = "error"; // Types: success, error, warning, info, question
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(loginViewModel);
                 }
-
             }
-            return View();
+
+            return View(loginViewModel);
         }
 
         private async Task SendLoginEmailAsync(string username)
         {
             try
             {
-                var emailConfig = _configuration.GetSection("EmailConfig");
-                var fromEmail = emailConfig.GetValue<string>("FromEmail");
+                var emailConfig = _configuration.GetSection("EmailConfig").GetSection("Smtp");
+                var fromEmail = emailConfig["FromEmail"];
+                var usernameEmail = emailConfig["Username"];
+                var passwordEmail = emailConfig["Password"];
+                var hostEmail = emailConfig["Host"];
+                var portEmail = emailConfig.GetValue<int>("Port");
 
                 var message = new MailMessage
                 {
@@ -331,15 +339,14 @@ namespace Bloggie.Web.Controllers
 
                 message.To.Add(new MailAddress(fromEmail)); // Send notification to the user's own email
 
-                using (var mailClient = new SmtpClient())
+                using (var client = new SmtpClient(hostEmail, portEmail))
                 {
-                    mailClient.UseDefaultCredentials = false;
-                    mailClient.Credentials = new System.Net.NetworkCredential(fromEmail, emailConfig.GetValue<string>("Password"));
-                    mailClient.Host = emailConfig.GetValue<string>("Host");
-                    mailClient.Port = emailConfig.GetValue<int>("Port");
-                    mailClient.EnableSsl = true; // Enable SSL/TLS
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new System.Net.NetworkCredential(usernameEmail, passwordEmail);
+                    client.EnableSsl = true;
+                    client.Timeout = 30000;
 
-                    await mailClient.SendMailAsync(message);
+                    await client.SendMailAsync(message);
                 }
             }
             catch (Exception ex)
@@ -348,13 +355,13 @@ namespace Bloggie.Web.Controllers
                 // Handle exception as needed
             }
         }
-
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
 
         [HttpGet]
         public IActionResult AccessDenied()
