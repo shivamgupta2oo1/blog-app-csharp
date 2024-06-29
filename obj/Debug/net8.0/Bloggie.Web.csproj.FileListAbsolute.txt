@@ -562,3 +562,10 @@
 /home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/MailKit.dll
 /home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/MimeKit.dll
 /home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/HtmlAgilityPack.dll
+/home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/publish/web.config
+/home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/publish/appsettings.Development.json
+/home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/publish/appsettings.json
+/home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/publish/Bloggie.Web.deps.json
+/home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/publish/Bloggie.Web.runtimeconfig.json
+/home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/publish/package-lock.json
+/home/algo66/shivam/BLOGNEW/blog-app-csharp/bin/Debug/net8.0/publish/package.json

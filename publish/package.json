@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "sweetalert2": "^11.11.1"
+  },
+  "name": "blog-app-csharp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivamgupta2oo1/blog-app-csharp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivamgupta2oo1/blog-app-csharp/issues"
+  },
+  "homepage": "https://github.com/shivamgupta2oo1/blog-app-csharp#readme",
+  "description": ""
+}

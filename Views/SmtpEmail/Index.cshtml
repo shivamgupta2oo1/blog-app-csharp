@@ -164,19 +164,6 @@
                     </form>
                 </div>
             </div>
-
-            @if (ViewBag.EmailSentSuccess != null && (bool)ViewBag.EmailSentSuccess)
-            {
-                <script>
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "Your email has been sent",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                </script>
-            }
         </div>
 
         <div class="col-md-6">
@@ -235,4 +222,91 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <!-- Include SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script>
+        // Function to display success notification using SweetAlert
+        function showSuccessAlert(message) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: message,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+
+        // Function to display error notification using SweetAlert
+        function showErrorAlert(message) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: message,
+                showConfirmButton: true
+            });
+        }
+
+        // Check if the page has a success message from ViewBag and show SweetAlert
+        @if (ViewBag.EmailSentSuccess != null)
+        {
+            if ((bool)ViewBag.EmailSentSuccess)
+            {
+                <text>
+                    showSuccessAlert("Your email has been sent successfully!");
+                </text>
+            }
+            else
+            {
+                <text>
+                    showErrorAlert("Error sending email. Please try again later.");
+                </text>
+            }
+        }
+    </script>
+}
+    <partial name="_ValidationScriptsPartial" />
+
+    <!-- Include SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script>
+        // Function to display success notification using SweetAlert
+        function showSuccessAlert(message) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: message,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+
+        // Function to display error notification using SweetAlert
+        function showErrorAlert(message) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: message,
+                showConfirmButton: true
+            });
+        }
+    </script>
+
+    @if (ViewBag.EmailSentSuccess != null)
+    {
+        if ((bool)ViewBag.EmailSentSuccess)
+        {
+            <script>
+                showSuccessAlert("Your email has been sent successfully!");
+            </script>
+        }
+        else
+        {
+            <script>
+                showErrorAlert("Error sending email. Please try again later.");
+            </script>
+        }
+    }
 }

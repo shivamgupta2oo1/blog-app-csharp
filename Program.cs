@@ -2,7 +2,6 @@ using Bloggie.Web.Data;
 using Bloggie.Web.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,3 +61,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{urlHandler?}");
 
 app.Run();
+
